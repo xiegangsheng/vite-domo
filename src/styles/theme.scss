@@ -1,0 +1,38 @@
+/**
+ * 主题颜色列表
+**/
+$themes: (
+
+    custom: (
+        //品牌色应用
+        themes: #6464F8,
+        material: #9caddf,
+        bot_color: #eceefa,
+    ),
+
+    normal: (
+        //字体
+        common: #272d4d,
+        second_level: #666a80,
+        three_level: #8f9198,
+        easyui: #b8b9bf,
+
+        //控件色
+        gray_color1: #e1e2e8,
+        gray_color2:#ebecf2,
+        gray_color3:#f2f3f7, 
+        gray_color4:#f8f8fc, 
+
+        //背景色
+        bg_color1: #ffffff,
+        bg_color2: #f8f8fc,
+        bg_color3: #ebecf2,
+
+        //功能色
+        link_color: #113DF5,
+        succ_color: #52C41A,
+        warn_color: #fa8c16,
+        error_color: #F5222D,
+    )
+
+);

@@ -1,0 +1,67 @@
+$--color-primary: #6464F8;
+$--color-p-hover: #7A7AF9;
+
+.el-dialog__headerbtn:focus .el-dialog__close,
+.el-dialog__headerbtn:hover .el-dialog__close {
+    color: $--color-primary;
+}
+
+.el-button--primary {
+    background-color: $--color-primary;
+    border-color: $--color-primary;
+}
+
+.el-button--primary:focus,
+.el-button--primary:hover {
+    background-color: $--color-p-hover;
+    border-color: $--color-p-hover;
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+    background-color: $--color-primary;
+    border-color: $--color-primary;
+}
+
+.el-radio__input.is-checked+.el-radio__label {
+    color: $--color-primary;
+}
+
+.el-select-dropdown__item.selected {
+    color: $--color-primary;
+}
+
+// 重置轮播图下标样式
+.el-carousel__indicator .el-carousel__button {
+    width: 15px;
+    height: 6px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+.el-carousel__indicator.is-active .el-carousel__button {
+    width: 50px;
+    height: 6px;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+.el-popper[x-placement^="bottom"] .popper__arrow::after {
+    border-bottom-color: transparent;
+}
+
+.el-checkbox__input {
+    .el-checkbox__inner {
+        width: 16px;
+        height: 16px;
+        border-color: $--color-primary;
+        border-radius: 4px;
+
+        &::after {
+            height: 8px;
+            width: 4px;
+            left: 4px;
+            top: 1px;
+            border-width: 2px;
+        }
+    }
+}
