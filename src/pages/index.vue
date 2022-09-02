@@ -9,6 +9,7 @@
     <router-link to="/request">点击跳转至request请求页面</router-link>
     <br /><br />
     <router-link to="/element">点击跳转至element页面</router-link>
+    <h1>hahahh</h1>
 </template>
 
 <script lang="ts">

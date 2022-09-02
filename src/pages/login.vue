@@ -1,29 +1,33 @@
 <template>
-    <h2> 这里是登录页面 </h2>
-    <br />
-    <el-form
-        ref="ruleFormRef"
-        :model="ruleForm"
-        :rules="rules"
-        label-width="120px"
-        class="demo-ruleForm"
-        :size="formSize"
-        status-icon
-    >
-        <el-form-item label="账号" prop="account">
-            <el-input v-model="ruleForm.account" />
-        </el-form-item>
-        <el-form-item label="密码" prop="psw">
-            <el-input v-model="ruleForm.psw" />
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
-            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-        </el-form-item>
-    </el-form>
-    <router-link to="/">点击跳转至首页</router-link>
-    <br /><br />
-    <router-link to="/vueUse">点击跳转至vueUse页面</router-link>
+    <div class="loginBox">
+        <div class="content">
+            <h2> 这里是登录页面 </h2>
+            <br />
+            <el-form
+                ref="ruleFormRef"
+                :model="ruleForm"
+                :rules="rules"
+                label-width="120px"
+                class="demo-ruleForm"
+                :size="formSize"
+                status-icon
+            >
+                <el-form-item label="账号" prop="account">
+                    <el-input v-model="ruleForm.account" />
+                </el-form-item>
+                <el-form-item label="密码" prop="psw">
+                    <el-input v-model="ruleForm.psw" />
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+                    <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+                </el-form-item>
+            </el-form>
+            <router-link to="/">点击跳转至首页</router-link>
+            <br /><br />
+            <router-link to="/vueUse">点击跳转至vueUse页面</router-link>
+        </div>
+    </div>
 </template>
 <script lang="ts">
     import { defineComponent, reactive, ref } from 'vue';
@@ -88,8 +92,10 @@
 </script>
 
 <style lang="scss" scoped>
-    .demo-ruleForm {
-        width: 600px;
-        margin: 0 auto;
+    .loginBox {
+        @include al_center(100%, 800px);
+        .content {
+            width: 600px;
+        }
     }
 </style>

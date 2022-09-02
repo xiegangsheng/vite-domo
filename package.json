@@ -29,6 +29,7 @@
         "axios": "^0.26.1",
         "element-plus": "^2.2.15",
         "pinia": "^2.0.12",
+        "pinia-plugin-persist": "^1.0.0",
         "sass": "^1.54.6",
         "vue": "^3.2.25",
         "vue-router": "^4.0.14"

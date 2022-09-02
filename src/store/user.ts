@@ -9,6 +9,15 @@ export const useUserStore = defineStore({
             userInfo: {}
         };
     },
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                storage: localStorage,
+                paths: ['userInfo']
+            }
+        ]
+    },
     getters: {
         loginStatus: (state) => {
             return !!Object.keys(state.userInfo).length;
@@ -23,6 +32,9 @@ export const useUserStore = defineStore({
         },
         updateUserInfo(userInfo: Object) {
             this.userInfo = userInfo;
+        },
+        logout() {
+            this.userInfo = {};
         }
     }
 });

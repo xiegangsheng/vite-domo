@@ -21,6 +21,7 @@
                     message: '退出成功！',
                     type: 'success'
                 });
+                userStore.logout();
                 router.push('/login');
             };
             return {
