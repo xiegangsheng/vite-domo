@@ -1,7 +1,11 @@
 <template>
-    <h2> 这里是request请求页面 </h2>
-    <br />
-    <el-button v-if="userStore.loginStatus" type="primary" @click="getLogout">退出登录</el-button>
+    <div>
+        <h2> 这里是request请求页面 </h2>
+        <br />
+        <el-button v-if="userStore.loginStatus" type="primary" @click="getLogout"
+            >退出登录</el-button
+        >
+    </div>
 </template>
 <script lang="ts">
     import { defineComponent, onMounted } from 'vue';

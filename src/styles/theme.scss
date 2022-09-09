@@ -20,7 +20,7 @@ $gray_color3:#f2f3f7;
 $gray_color4:#f8f8fc; 
 
 //背景色
-$bg_color1: #ffffff;
+$bg_color1: #001428;
 $bg_color2: #f8f8fc;
 $bg_color3: #ebecf2;
 
@@ -29,6 +29,9 @@ $link_color: #113DF5;
 $succ_color: #52C41A;
 $warn_color: #fa8c16;
 $error_color: #F5222D;
+
+//导航高度
+$nav_height: 60px;
 
 
 /**
@@ -43,3 +46,6 @@ $error_color: #F5222D;
     align-items: center;
     justify-content: center;
 }
+
+//动画时间
+$transitionTime: 0.3s ease;

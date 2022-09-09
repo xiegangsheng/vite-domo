@@ -9,7 +9,7 @@
                 :rules="rules"
                 label-width="120px"
                 class="demo-ruleForm"
-                :size="formSize"
+                size="large"
                 status-icon
             >
                 <el-form-item label="账号" prop="account">
@@ -19,13 +19,15 @@
                     <el-input v-model="ruleForm.psw" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+                    <el-button type="primary" :loading="loading" @click="submitForm(ruleFormRef)"
+                        >登录</el-button
+                    >
                     <el-button @click="resetForm(ruleFormRef)">重置</el-button>
                 </el-form-item>
             </el-form>
-            <router-link to="/">点击跳转至首页</router-link>
+            <!-- <router-link to="/">点击跳转至首页</router-link>
             <br /><br />
-            <router-link to="/vueUse">点击跳转至vueUse页面</router-link>
+            <router-link to="/vueUse">点击跳转至vueUse页面</router-link> -->
         </div>
     </div>
 </template>
@@ -34,7 +36,7 @@
     import API from '@/api';
     import type { FormInstance, FormRules } from 'element-plus';
     import { ElMessage } from 'element-plus';
-    import { useRouter } from 'vue-router';
+    import { useRouter, useRoute } from 'vue-router';
     import { useUserStore } from '@/store/user';
 
     export default defineComponent({
@@ -42,13 +44,14 @@
     });
 </script>
 <script lang="ts" setup>
-    const formSize = ref('default');
+    const loading = ref(false);
     const ruleFormRef = ref<FormInstance>();
     const ruleForm = reactive({
-        account: 'ceshi',
+        account: 'xgs',
         psw: '123456'
     });
     const router = useRouter();
+    const route = useRoute();
     const userStore = useUserStore();
 
     const rules = reactive<FormRules>({
@@ -69,20 +72,28 @@
     };
 
     const getLogin = async () => {
+        loading.value = true;
         let { data } = await API.login({
             account: ruleForm.account,
             newPlatformType: 'Web动画',
             psw: ruleForm.psw,
             register_source: 'PPT转视频落地页1'
         });
-        if (data.code != 200) return;
+        if (data.code != 200) {
+            loading.value = false;
+            return;
+        }
+        loading.value = false;
         userStore.updateUserInfo(data.data);
         ElMessage({
             message: '登录成功！',
             type: 'success'
         });
-        router.push('/request');
-        console.log(data.data);
+        router.replace({
+            path: route.query.redirect ? (route.query.redirect as string) : '/index'
+        });
+        // router.push('/request');
+        console.log(userStore.userInfo, userStore.loginStatus);
     };
 
     const resetForm = (formEl: FormInstance | undefined) => {

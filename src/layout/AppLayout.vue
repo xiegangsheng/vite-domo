@@ -1,8 +1,13 @@
 <template>
-    <el-container>
-        <el-aside width="200px"><Sidebar /></el-aside>
-        <el-container>
-            <el-header>
+    <div class="container-page">
+        <div :class="[userStore.isCollapse ? 'left-close' : 'left-aside']">
+            <Sidebar />
+        </div>
+        <div class="container">
+            <div class="header-page">
+                <div class="hearNav">
+                    <Humburger></Humburger>
+                </div>
                 <div
                     class="user-info"
                     @mouseover="userMenuShow = true"
@@ -13,18 +18,24 @@
                         alt="avatar"
                     />test
                     <div v-show="userMenuShow" class="user-menu">
-                        <div class="user-menu-item" @click="logout">登出</div>
+                        <div class="user-menu-item" @click="getLogout">登出</div>
                     </div>
-                </div></el-header
-            >
-            <el-main><RouterView /></el-main>
-        </el-container>
-    </el-container>
+                </div>
+            </div>
+            <div class="content-page">
+                <!-- <RouterView /> -->
+                <Main />
+            </div>
+        </div>
+    </div>
 </template>
 <script lang="ts">
     import { defineComponent, ref } from 'vue';
     import { useRouter } from 'vue-router';
     import Sidebar from '@/layout/Sidebar.vue';
+    import { useUserStore } from '@/store/user';
+    import { ElMessage } from 'element-plus';
+    import API from '@/api';
 
     export default defineComponent({
         name: 'LayOut',
@@ -35,60 +46,93 @@
             const router = useRouter();
             const userMenuShow = ref<boolean>(false);
 
-            const methods = {
-                logout() {
-                    router.push({
-                        path: '/login'
-                    });
-                }
+            const userStore = useUserStore();
+
+            const getLogout = async () => {
+                let { data } = await API.logout();
+                if (data.code != 200) return;
+                ElMessage({
+                    message: '退出成功！',
+                    type: 'success'
+                });
+                userStore.logout();
+                router.push('/login');
             };
 
             return {
                 userMenuShow,
-                ...methods
+                userStore,
+                getLogout
             };
         }
     });
 </script>
 <style lang="scss" scoped>
-    .el-header {
-        height: 60px;
-        line-height: 60px;
-        box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    .container-page {
+        width: 100%;
+        height: 100%;
         display: flex;
-        flex-direction: row-reverse;
-        background-color: #b3c0d1;
-        .user-info {
-            position: relative;
+    }
+    .left-aside {
+        width: 200px;
+        height: 100%;
+        background: $bg_color1;
+        transition: all 0.3s ease;
+    }
+    .left-close {
+        width: 65px;
+        height: 100%;
+        background: $bg_color1;
+        transition: all 0.3s ease;
+    }
+    .container {
+        flex: 1;
+        .header-page {
+            height: $nav_height;
+            line-height: $nav_height;
+            box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
             display: flex;
-            align-items: center;
-            margin-right: 100px;
-            cursor: pointer;
-            padding: 0 12px;
-            img {
-                margin-right: 10px;
-                width: 24px;
-            }
-            .user-menu {
-                width: 100%;
-                position: absolute;
-                padding: 10px 0;
-                left: 0;
-                top: 60px;
-                text-align: center;
-                font-size: 14px;
-                background: #fff;
-                border: 1px solid #e4e7ed;
-                box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-                line-height: 36px;
-                .user-menu-item:hover {
-                    background-color: #ecf5ff;
-                    color: #66b1ff;
+            justify-content: space-between;
+            background-color: #b3c0d1;
+            .user-info {
+                position: relative;
+                display: flex;
+                align-items: center;
+                margin-right: 100px;
+                cursor: pointer;
+                padding: 0 12px;
+                img {
+                    margin-right: 10px;
+                    width: 24px;
+                }
+                .user-menu {
+                    width: 100%;
+                    position: absolute;
+                    padding: 10px 0;
+                    left: 0;
+                    top: 60px;
+                    text-align: center;
+                    font-size: 14px;
+                    background: #fff;
+                    border: 1px solid #e4e7ed;
+                    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+                    line-height: 36px;
+                    .user-menu-item:hover {
+                        background-color: #ecf5ff;
+                        color: #66b1ff;
+                    }
+                }
+                &:hover {
+                    background: rgba(0, 0, 0, 0.025);
                 }
             }
-            &:hover {
-                background: rgba(0, 0, 0, 0.025);
-            }
+        }
+        .content-page {
+            width: 100%;
+            height: calc(100% - $nav_height);
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
     }
 </style>
