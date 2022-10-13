@@ -4,47 +4,77 @@
     </svg>
 </template>
 
-<script lang="ts">
-    import { defineComponent, computed } from 'vue';
-    export default defineComponent({
-        name: 'IconFont',
-        props: {
-            name: {
-                type: String,
-                default: '#icon-video-stop'
-            }, // icon 名称
-            fontSize: {
-                type: String,
-                default: '12px'
-            }, // icon 字体大小
-            width: {
-                type: String,
-                default: '1em'
-            }, // icon 宽度
-            height: {
-                type: String,
-                default: '1em'
-            }, // icon 高度
-            color: {
-                type: String,
-                default: ''
-            } //改色
-        },
-        setup(props) {
-            const style = computed(() => {
-                return {
-                    'font-size': props.fontSize,
-                    width: props.width,
-                    height: props.height,
-                    fill: props.color ? props.color : 'currentColor'
-                };
-            });
-
-            return {
-                style
-            };
-        }
+<script lang="ts" setup name="IconFont">
+    const props = defineProps({
+        name: {
+            type: String,
+            default: '#icon-video-stop'
+        }, // icon 名称
+        fontSize: {
+            type: String,
+            default: '12px'
+        }, // icon 字体大小
+        width: {
+            type: String,
+            default: '1em'
+        }, // icon 宽度
+        height: {
+            type: String,
+            default: '1em'
+        }, // icon 高度
+        color: {
+            type: String,
+            default: ''
+        } //改色
     });
+    const style = computed(() => {
+        return {
+            'font-size': props.fontSize,
+            width: props.width,
+            height: props.height,
+            fill: props.color ? props.color : 'currentColor'
+        };
+    });
+    // import { defineComponent, computed } from 'vue';
+    // export default defineComponent({
+    //     name: 'IconFont',
+    //     props: {
+    //         name: {
+    //             type: String,
+    //             default: '#icon-video-stop'
+    //         }, // icon 名称
+    //         fontSize: {
+    //             type: String,
+    //             default: '12px'
+    //         }, // icon 字体大小
+    //         width: {
+    //             type: String,
+    //             default: '1em'
+    //         }, // icon 宽度
+    //         height: {
+    //             type: String,
+    //             default: '1em'
+    //         }, // icon 高度
+    //         color: {
+    //             type: String,
+    //             default: ''
+    //         } //改色
+    //     },
+    //     setup(props) {
+    //         const style = computed(() => {
+    //             return {
+    //                 'font-size': props.fontSize,
+    //                 width: props.width,
+    //                 height: props.height,
+    //                 fill: props.color ? props.color : 'currentColor'
+    //             };
+    //         });
+
+    //         return {
+    //             style
+    //         };
+    //     }
+    // });
 </script>
 
 <style scoped lang="scss">

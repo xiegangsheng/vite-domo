@@ -25,6 +25,17 @@ export const routes = [
         component: () => import('@/pages/404.vue')
     },
     {
+        path: window.location.pathname,
+        name: 'Default',
+        meta: {
+            title: 'default',
+            keepAlive: false,
+            requireAuth: false
+        },
+        hidden: true,
+        component: () => import('@/pages/defaultRoute.vue')
+    },
+    {
         path: '/',
         redirect: '/index',
         hidden: true
@@ -35,7 +46,7 @@ export const routes = [
         component: AppLayout,
         meta: {
             title: '首页',
-            keepAlive: true,
+            keepAlive: false,
             requireAuth: true
         },
         hidden: false,
@@ -46,7 +57,7 @@ export const routes = [
                 name: 'IndexPage',
                 meta: {
                     title: '首页',
-                    keepAlive: true,
+                    keepAlive: false,
                     requireAuth: true
                 },
                 component: () => import('@/pages/index.vue'),
@@ -55,47 +66,14 @@ export const routes = [
             }
         ]
     }
-    // {
-    //     path: '/index',
-    //     name: 'IndexPage',
-    //     meta: {
-    //         title: '首页',
-    //         keepAlive: true,
-    //         requireAuth: true
-    //     },
-    //     component: () => import('@/pages/index.vue')
-    // },
-    // {
-    //     path: '/vueUse',
-    //     name: 'VueUse',
-    //     meta: {
-    //         title: 'vueUse demo',
-    //         keepAlive: true,
-    //         requireAuth: true
-    //     },
-    //     component: () => import('@/pages/vueUse.vue')
-    // },
-    // {
-    //     path: '/request',
-    //     name: 'RequestPage',
-    //     meta: {
-    //         title: 'request demo',
-    //         keepAlive: true,
-    //         requireAuth: true
-    //     },
-    //     component: () => import('@/pages/request.vue')
-    // },
-    // {
-    //     path: '/element',
-    //     name: 'Element',
-    //     meta: {
-    //         title: 'element demo',
-    //         keepAlive: true,
-    //         requireAuth: true
-    //     },
-    //     component: () => import('@/pages/element.vue')
-    // }
 ];
+
+export const NOT_FOUND_ROUTE = {
+    name: 'NotFound',
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+    hidden: true
+};
 
 const router = createRouter({
     history: createWebHistory(),

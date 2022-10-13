@@ -7,6 +7,7 @@
             <div class="header-page">
                 <div class="hearNav">
                     <Humburger></Humburger>
+                    <Breadcrumb></Breadcrumb>
                 </div>
                 <div
                     class="user-info"
@@ -16,7 +17,7 @@
                     <img
                         src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png"
                         alt="avatar"
-                    />test
+                    />{{ userStore.userInfo?.acc }}
                     <div v-show="userMenuShow" class="user-menu">
                         <div class="user-menu-item" @click="getLogout">登出</div>
                     </div>
@@ -29,43 +30,27 @@
         </div>
     </div>
 </template>
-<script lang="ts">
-    import { defineComponent, ref } from 'vue';
-    import { useRouter } from 'vue-router';
+<script lang="ts" setup name="LayOut">
     import Sidebar from '@/layout/Sidebar.vue';
     import { useUserStore } from '@/store/user';
     import { ElMessage } from 'element-plus';
     import API from '@/api';
 
-    export default defineComponent({
-        name: 'LayOut',
-        components: {
-            Sidebar
-        },
-        setup() {
-            const router = useRouter();
-            const userMenuShow = ref<boolean>(false);
+    const router = useRouter();
+    const userMenuShow = ref<boolean>(false);
 
-            const userStore = useUserStore();
+    const userStore = useUserStore();
 
-            const getLogout = async () => {
-                let { data } = await API.logout();
-                if (data.code != 200) return;
-                ElMessage({
-                    message: '退出成功！',
-                    type: 'success'
-                });
-                userStore.logout();
-                router.push('/login');
-            };
-
-            return {
-                userMenuShow,
-                userStore,
-                getLogout
-            };
-        }
-    });
+    const getLogout = async () => {
+        let { data } = await API.logout();
+        if (data.code != 200) return;
+        ElMessage({
+            message: '退出成功！',
+            type: 'success'
+        });
+        userStore.logout();
+        router.push('/login');
+    };
 </script>
 <style lang="scss" scoped>
     .container-page {
@@ -93,7 +78,11 @@
             box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
             display: flex;
             justify-content: space-between;
-            background-color: #b3c0d1;
+            background-color: #ffffff;
+            .hearNav {
+                display: flex;
+                align-items: center;
+            }
             .user-info {
                 position: relative;
                 display: flex;
@@ -130,6 +119,7 @@
         .content-page {
             width: 100%;
             height: calc(100% - $nav_height);
+            background: $bot_color;
             padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;

@@ -3,9 +3,12 @@ import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
 // import Icons from 'unplugin-icons/vite';
 // import IconsResolver from 'unplugin-icons/resolver';
+// import DefineOptions from 'unplugin-vue-define-options/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+//setup语法糖之简化name
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,8 +29,19 @@ export default defineConfig({
     },
     plugins: [
         vue(),
+        vueSetupExtend(),
+        // DefineOptions(),
         AutoImport({
-            resolvers: [ElementPlusResolver()]
+            resolvers: [ElementPlusResolver()],
+            // 后续vue/vue-router/pinia的API都不需要再单独import到setup里面了
+            imports: ['vue', 'vue-router', 'pinia'],
+            eslintrc: {
+                enabled: false, // 若没此json文件，先开启，生成后在关闭
+                filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+                globalsPropValue: true
+            },
+            //dts: 'src/auto-imports...', // 可以自定义文件生成的位置与是否生成，默认是根目录下
+            dts: './auto-import.d.ts'
         }),
         Components({
             dirs: ['src/components'], // 配置需要默认导入的自定义组件文件夹，该文件夹下的所有组件都会自动 import

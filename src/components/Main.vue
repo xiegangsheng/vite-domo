@@ -2,39 +2,32 @@
     <div class="routeView">
         <router-view v-slot="{ Component }">
             <transition name="fade-transform" mode="out-in" appear>
-                <!-- <keep-alive :include="cachedViews"> -->
-                <component :is="Component" :key="routeKey" />
-                <!-- </keep-alive> -->
+                <KeepAlive :include="cachedViews">
+                    <component :is="Component" :key="routeKey" />
+                </KeepAlive>
             </transition>
         </router-view>
     </div>
 </template>
 
-<script lang="ts">
-    import { computed, defineComponent, ref, watch } from 'vue';
-    import { useRoute } from 'vue-router';
-    import { useUserStore } from '@/store/user';
-    export default defineComponent({
-        name: 'MaIn',
-        setup() {
-            const userStore = useUserStore();
-            const route = useRoute();
-            const routeKey = ref(route.fullPath);
-            const cachedViews = computed(() => {
-                return userStore.cachedView.map((it) => it);
-            });
-            watch(
-                () => route.fullPath,
-                () => {
-                    routeKey.value = route.fullPath;
-                }
-            );
-            return {
-                cachedViews,
-                routeKey
-            };
-        }
+<script lang="ts" setup name="MaIn">
+    const route = useRoute();
+    const routeKey = ref(route.fullPath);
+    const router = useRouter();
+    const allRoutes = router.getRoutes();
+
+    const cachedViews = computed(() => {
+        let arr = shallowReactive([]) as Array<any>;
+        arr = allRoutes.filter((route) => route.meta?.keepAlive).map((route) => route.name);
+        return arr;
     });
+
+    watch(
+        () => route.fullPath,
+        () => {
+            routeKey.value = route.fullPath;
+        }
+    );
 </script>
 
 <style lang="scss" scoped>

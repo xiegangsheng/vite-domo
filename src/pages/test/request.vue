@@ -14,7 +14,7 @@
     import { useRouter } from 'vue-router';
     import API from '@/api';
     export default defineComponent({
-        name: 'RequestPage',
+        name: 'Request',
         setup() {
             const userStore = useUserStore();
             const router = useRouter();

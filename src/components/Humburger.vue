@@ -8,22 +8,12 @@
     </el-icon>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="HumBurger">
     import { useUserStore } from '@/store/user';
-    import { defineComponent } from 'vue';
-    export default defineComponent({
-        name: 'HumBurger',
-        setup() {
-            const userStore = useUserStore();
-            const toggleFold = () => {
-                userStore.updateCollapse(!userStore.isCollapse);
-            };
-            return {
-                userStore,
-                toggleFold
-            };
-        }
-    });
+    const userStore = useUserStore();
+    const toggleFold = () => {
+        userStore.updateCollapse(!userStore.isCollapse);
+    };
 </script>
 
 <style lang="scss" scoped>

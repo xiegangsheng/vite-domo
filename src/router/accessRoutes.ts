@@ -1,64 +1,3 @@
-// import AppLayout from '@/layout/AppLayout.vue';
-
-// const accessRoutes: Array<RouteRecordRaw> = [
-//     {
-//         path: '/',
-//         name: 'IndexPage',
-//         meta: {
-//             title: '首页',
-//             keepAlive: true,
-//             requireAuth: true
-//         },
-//         component: AppLayout,
-//         children: [
-//             {
-//                 path: '/',
-//                 name: 'IndexPage',
-//                 meta: {
-//                     title: '首页',
-//                     keepAlive: true,
-//                     requireAuth: true
-//                 },
-//                 component: () => import('@/pages/index.vue')
-//             }
-//         ]
-//     },
-//     {
-//         path: '/test',
-//         name: 'Test',
-//         meta: {
-//             title: '系统测试',
-//             keepAlive: true,
-//             requireAuth: true
-//         },
-//         component: AppLayout,
-//         children: [
-//             {
-//                 path: '/test/vueUse',
-//                 name: 'VueUse',
-//                 meta: {
-//                     title: 'vueUse demo',
-//                     keepAlive: true,
-//                     requireAuth: true
-//                 },
-//                 component: () => import('@/pages/vueUse.vue')
-//             },
-//             {
-//                 path: '/test/element',
-//                 name: 'Element',
-//                 meta: {
-//                     title: 'element demo',
-//                     keepAlive: true,
-//                     requireAuth: true
-//                 },
-//                 component: () => import('@/pages/element.vue')
-//             }
-//         ]
-//     }
-// ];
-
-// export default accessRoutes;
-
 export const adminRoutes = [
     {
         path: '/test',
@@ -76,18 +15,18 @@ export const adminRoutes = [
                 name: 'VueUse',
                 meta: {
                     title: 'vueUse demo',
-                    keepAlive: false,
-                    requireAuth: true
+                    keepAlive: false, //是否开启缓存
+                    requireAuth: true //是否需要授权
                 },
-                hidden: false,
-                icon: ''
+                hidden: false, //是否在左侧菜单展示
+                icon: '' //图标
             },
             {
                 path: '/test/element',
                 name: 'Element',
                 meta: {
                     title: 'element demo',
-                    keepAlive: true,
+                    keepAlive: false,
                     requireAuth: true
                 },
                 hidden: false,
@@ -102,6 +41,17 @@ export const adminRoutes = [
                     requireAuth: true
                 },
                 hidden: true,
+                icon: ''
+            },
+            {
+                path: '/test/cache',
+                name: 'Cache',
+                meta: {
+                    title: '缓存页面',
+                    keepAlive: true,
+                    requireAuth: true
+                },
+                hidden: false,
                 icon: ''
             }
         ]

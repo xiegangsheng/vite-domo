@@ -1,6 +1,6 @@
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import router, { routes as constantRoutes } from '@/router';
+import router, { routes as constantRoutes, NOT_FOUND_ROUTE } from '@/router';
 import { adminRoutes } from '@/router/accessRoutes';
 import { RouteRecordRawWithHidden, OriginRoute } from '@/types/routes';
 import { RouteRecordRaw } from 'vue-router';
@@ -16,7 +16,6 @@ NProgress.configure({
 
 function getComponent(it: OriginRoute) {
     const name = it.path == '/' ? '/index' : it.path;
-    console.log(`@/pages${name}.vue`);
     return (): any => import(`../pages${name}.vue`);
 }
 
@@ -58,7 +57,7 @@ router.beforeEach(async (to) => {
         NProgress.done();
         return true;
     } else {
-        console.log(userStore.loginStatus, userStore.isEmptyRoute, 777);
+        // console.log(userStore.loginStatus, userStore.isEmptyRoute, to, 777);
         if (!userStore.loginStatus) {
             NProgress.done();
             return {
@@ -70,12 +69,11 @@ router.beforeEach(async (to) => {
                 // 加载路由
                 const accessRoutes: Array<RouteRecordRaw> = [];
                 const tempRoutes = generatorRoutes(adminRoutes);
-                accessRoutes.push(...tempRoutes);
+                accessRoutes.push(...tempRoutes, NOT_FOUND_ROUTE);
                 accessRoutes.forEach((it: any) => {
                     router.addRoute(it);
                 });
                 userStore.updateRoutes([...constantRoutes, ...accessRoutes]);
-                console.log(userStore.permissionRoutes, 999);
                 return { ...to, replace: true };
             } else {
                 return true;

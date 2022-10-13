@@ -1,37 +1,24 @@
 <template>
-    <el-menu
-        :default-active="$route.path"
-        class="el-menu-vertical"
-        active-text-color="#409eff"
-        background-color="#001428"
-        text-color="#bbbbbb"
-        :collapse="userStore.isCollapse"
-        :router="true"
-        :collapse-transition="false"
-    >
+    <div class="leftbar">
         <div class="logo">
             <img src="@/assets/logo.png" alt="" width="40" />
             <span v-show="!userStore.isCollapse">哈哈管理系统</span>
         </div>
-        <el-menu-item index="4">
-            <el-icon><HomeFilled /></el-icon>
-            <template #title>首页</template>
-        </el-menu-item>
-        <el-sub-menu index="/test">
-            <template #title>
-                <el-icon><Setting /></el-icon>
-                <span>系统测试</span>
-            </template>
-            <el-menu-item-group>
-                <el-menu-item index="/test/element">element</el-menu-item>
-                <el-menu-item index="/test/request">request</el-menu-item>
-                <el-menu-item index="/test/vueUse">vueUse</el-menu-item>
-            </el-menu-item-group>
-        </el-sub-menu>
-        <!-- <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrap-class">
-            <MenusItem :menu-data="qrcodeList"></MenusItem>
-        </el-scrollbar> -->
-    </el-menu>
+        <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrap-class">
+            <el-menu
+                :default-active="$route.path"
+                class="el-menu-vertical"
+                active-text-color="#409eff"
+                background-color="#001428"
+                text-color="#bbbbbb"
+                :collapse="userStore.isCollapse"
+                :router="true"
+                :collapse-transition="false"
+            >
+                <MenusItem :menu-data="qrcodeList"></MenusItem>
+            </el-menu>
+        </el-scrollbar>
+    </div>
 </template>
 <script lang="ts">
     import { defineComponent, onMounted, reactive } from 'vue';
@@ -61,7 +48,7 @@
             };
             qrcodeList = arrFilter(qrcodeList);
             onMounted(() => {
-                console.log(userStore.permissionRoutes, 1212);
+                // console.log(userStore.permissionRoutes, 1212);
             });
             return {
                 userStore,
@@ -73,35 +60,33 @@
 </script>
 
 <style lang="scss" scoped>
-    .scrollbar {
-        height: calc(100vh - $nav_height);
-    }
-    .logo {
-        width: 100%;
-        height: calc($nav_height - 1px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        font-size: 18px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        box-sizing: border-box;
-        background: $bg_color1;
-        color: #ffffff;
-        border-bottom: 1px dashed #ffffff;
-        span {
-            margin-left: 10px;
-            width: auto;
-            white-space: nowrap;
-            overflow: hidden;
+    .leftbar {
+        height: 100%;
+        .scrollbar {
+            height: calc(100% - $nav_height);
         }
-    }
-    .el-menu-vertical {
-        padding-top: $nav_height;
-        box-sizing: border-box;
-        border: none;
+        .logo {
+            width: 100%;
+            height: calc($nav_height - 1px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+            box-sizing: border-box;
+            background: $bg_color1;
+            color: #ffffff;
+            border-bottom: 1px dashed #ffffff;
+            span {
+                margin-left: 10px;
+                width: auto;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+        .el-menu-vertical {
+            box-sizing: border-box;
+            border: none;
+        }
     }
 </style>

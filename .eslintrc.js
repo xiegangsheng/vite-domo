@@ -14,7 +14,8 @@ module.exports = {
         'plugin:vue/vue3-recommended',
         'plugin:@typescript-eslint/recommended',
         'prettier',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        './.eslintrc-auto-import.json'
     ],
 
     rules: {
@@ -46,6 +47,15 @@ module.exports = {
         ],
         'space-before-function-paren': 'off',
         quotes: ['error', 'single'],
-        'comma-dangle': ['error', 'never']
+        'comma-dangle': ['error', 'never'],
+        //关闭组件命名规则
+        'vue/multi-word-component-names': 'off'
+        //忽略个别组件名
+        // 'vue/multi-word-component-names': [
+        //     'error',
+        //     {
+        //         ignores: ['login']
+        //     }
+        // ]
     }
 };

@@ -1,49 +1,47 @@
 <template>
-    <div class="loginBox">
-        <div class="content">
-            <h2> 这里是登录页面 </h2>
-            <br />
-            <el-form
-                ref="ruleFormRef"
-                :model="ruleForm"
-                :rules="rules"
-                label-width="120px"
-                class="demo-ruleForm"
-                size="large"
-                status-icon
-            >
-                <el-form-item label="账号" prop="account">
-                    <el-input v-model="ruleForm.account" />
-                </el-form-item>
-                <el-form-item label="密码" prop="psw">
-                    <el-input v-model="ruleForm.psw" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" :loading="loading" @click="submitForm(ruleFormRef)"
-                        >登录</el-button
-                    >
-                    <el-button @click="resetForm(ruleFormRef)">重置</el-button>
-                </el-form-item>
-            </el-form>
-            <!-- <router-link to="/">点击跳转至首页</router-link>
+    <div class="loginPage">
+        <div class="loginBox">
+            <div class="content">
+                <h2> 这里是登录页面 </h2>
+                <br />
+                <el-form
+                    ref="ruleFormRef"
+                    :model="ruleForm"
+                    :rules="rules"
+                    label-width="120px"
+                    class="demo-ruleForm"
+                    size="large"
+                    status-icon
+                >
+                    <el-form-item label="账号" prop="account">
+                        <el-input v-model="ruleForm.account" />
+                    </el-form-item>
+                    <el-form-item label="密码" prop="psw">
+                        <el-input v-model="ruleForm.psw" />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button
+                            type="primary"
+                            :loading="loading"
+                            @click="submitForm(ruleFormRef)"
+                            >登录</el-button
+                        >
+                        <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+                    </el-form-item>
+                </el-form>
+                <!-- <router-link to="/">点击跳转至首页</router-link>
             <br /><br />
             <router-link to="/vueUse">点击跳转至vueUse页面</router-link> -->
+            </div>
         </div>
     </div>
 </template>
-<script lang="ts">
-    import { defineComponent, reactive, ref } from 'vue';
+
+<script lang="ts" setup name="LoginPage">
     import API from '@/api';
     import type { FormInstance, FormRules } from 'element-plus';
     import { ElMessage } from 'element-plus';
-    import { useRouter, useRoute } from 'vue-router';
     import { useUserStore } from '@/store/user';
-
-    export default defineComponent({
-        name: 'LoginPage'
-    });
-</script>
-<script lang="ts" setup>
     const loading = ref(false);
     const ruleFormRef = ref<FormInstance>();
     const ruleForm = reactive({
@@ -103,6 +101,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .loginPage {
+        @include bg_img(100%, 100%, '@/assets/login_bg.webp');
+    }
     .loginBox {
         @include al_center(100%, 800px);
         .content {

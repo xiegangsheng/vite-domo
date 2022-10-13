@@ -1,15 +1,13 @@
 <template>
-    <h1> 你访问的页面找不到~ </h1>
-    <h1>404</h1>
-    <h1>
-        <router-link to="/">点击跳转至首页</router-link>
-    </h1>
+    <div class="404page">
+        <el-empty :image="img" :image-size="500" description="你访问的页面找不到~">
+            <el-button type="primary" @click="push('/')">返回首页</el-button>
+        </el-empty>
+    </div>
 </template>
 
-<script lang="ts">
-    import { defineComponent } from 'vue';
-
-    export default defineComponent({
-        name: 'NotFind'
-    });
+<script lang="ts" setup name="NotFind">
+    import { getAssetsFile } from '@/utils/index';
+    const img = getAssetsFile('404.webp');
+    const { push } = useRouter();
 </script>

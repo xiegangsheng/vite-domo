@@ -26,7 +26,7 @@
     import { ElMessage } from 'element-plus';
     import { defineComponent, ref } from 'vue';
     export default defineComponent({
-        name: 'TElement',
+        name: 'Element',
         setup() {
             const open = () => {
                 ElMessage({
